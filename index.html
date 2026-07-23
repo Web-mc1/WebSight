@@ -1,1 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CheeseWhiz SMP | Staff Cheat Sheet</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==================== ROOT VARIABLES ==================== */
+:root {
+    --primary: #ffd54f;
+    --primary-glow: rgba(255, 213, 79, 0.35);
+    --primary-hover: #ffe082;
+    --bg-dark: #0a0c10;
+    --glass-bg: rgba(18, 20, 29, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-hover-border: rgba(255, 213, 79, 0.4);
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --code-bg: rgba(0, 0, 0, 0.4);
+}
+
+/* ==================== BASE STYLES ==================== */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    color: var(--text-main);
+    background-color: var(--bg-dark);
+    overflow-x: hidden;
+    background: 
+        radial-gradient(circle at 50% 0%, rgba(255, 213, 79, 0.12), transparent 50%),
+        linear-gradient(rgba(10, 12, 16, 0.85), rgba(10, 12, 16, 0.92)),
+        url("dOk3erq3R4FLcv01RbGT9ED2-MVTfRAALUAZUO0WE95SwjrVXV1-OsDEqVJeDvKFqN5e6eNK5th2U4P36Q4kNdOv7oxB-OgVUVliPf4xei6qPq3izRfKbn_BkpghzHH3F9zsr_RETIrdF8yKX2EAWyuv0Jd2CHIf0q7l_unareglG9rzp45j2z5CNyMySWBb.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    line-height: 1.6;
+    padding-bottom: 60px;
+}
+
+/* ==================== HEADER ==================== */
+header {
+    text-align: center;
+    padding: 60px 20px 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 30%, var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* ==================== CONTROLS (SEARCH & FILTER) ==================== */
+.controls-container {
+    max-width: 1100px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 16px 24px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.tag-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tag-btn:hover, .tag-btn.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 2px 10px var(--primary-glow);
+}
+
+/* ==================== CHEAT SHEET GRID ==================== */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.category-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    border-color: var(--glass-hover-border);
+}
+
+.category-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 12px;
+}
+
+.cmd-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cmd-item {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 14px;
+    position: relative;
+}
+
+.cmd-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #ffd54f;
+    font-size: 0.95rem;
+    word-break: break-word;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.cmd-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+    text-align: center;
+    margin-top: 60px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>🛡️ Staff Command Cheat Sheet</h1>
+    <p>Quick command reference for CheeseWhiz SMP Moderators & Admins</p>
+</header>
+
+<div class="controls-container">
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search commands or plugins (e.g. ban, region, lp)..." onkeyup="filterCommands()">
+    </div>
+    
+    <div class="filter-tags">
+        <button class="tag-btn active" onclick="filterTag('all', this)">All</button>
+        <button class="tag-btn" onclick="filterTag('moderation', this)">Moderation</button>
+        <button class="tag-btn" onclick="filterTag('permissions', this)">Permissions</button>
+        <button class="tag-btn" onclick="filterTag('world', this)">WorldEdit/Guard</button>
+        <button class="tag-btn" onclick="filterTag('performance', this)">Performance</button>
+        <button class="tag-btn" onclick="filterTag('tracking', this)">Anti-Xray</button>
+    </div>
+</div>
+
+<div class="container" id="cmdContainer">
+
+    <div class="category-card" data-category="moderation">
+        <div class="category-title">⚖️ Moderation & Punishments</div>
+        <div class="cmd-list">
+            <div class="cmd-item">
+                <span class="cmd-code">/ban &lt;player&gt; &lt;reason&gt;</span>
+                <span class="cmd-desc">Permanently ban a player from the server.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/tempban &lt;player&gt; &lt;time&gt; &lt;reason&gt;</span>
+                <span class="cmd-desc">Temp ban (e.g., 1d = 1 day, 2h = 2 hours).</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/mute &lt;player&gt; &lt;reason&gt;</span>
+                <span class="cmd-desc">Silence a player in global chat.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/warn &lt;player&gt; &lt;reason&gt;</span>
+                <span class="cmd-desc">Issue an official warning record.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/history &lt;player&gt;</span>
+                <span class="cmd-desc">View previous warnings, mutes, and bans.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-card" data-category="permissions">
+        <div class="category-title">🔑 Permissions (LuckPerms)</div>
+        <div class="cmd-list">
+            <div class="cmd-item">
+                <span class="cmd-code">/lp user &lt;player&gt; info</span>
+                <span class="cmd-desc">Check user rank and assigned permissions.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/lp user &lt;player&gt; parent set &lt;rank&gt;</span>
+                <span class="cmd-desc">Set a user's primary group/rank.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/lp editor</span>
+                <span class="cmd-desc">Generate web editor URL for quick permissions management.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-card" data-category="world">
+        <div class="category-title">🗺️ WorldEdit & Protection</div>
+        <div class="cmd-list">
+            <div class="cmd-item">
+                <span class="cmd-code">//wand</span>
+                <span class="cmd-desc">Get the selection wand (Wooden Axe).</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">//set &lt;block&gt;</span>
+                <span class="cmd-desc">Fill current selection with specified block.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/rg define &lt;name&gt;</span>
+                <span class="cmd-desc">Protect selection as a WorldGuard region.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/rg flag &lt;name&gt; &lt;flag&gt; &lt;allow/deny&gt;</span>
+                <span class="cmd-desc">Configure region rules (e.g., pvp deny).</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-card" data-category="performance">
+        <div class="category-title">⚡ Performance & Optimization</div>
+        <div class="cmd-list">
+            <div class="cmd-item">
+                <span class="cmd-code">/tps</span>
+                <span class="cmd-desc">View current server Ticks Per Second (Target: 20.0).</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/lagscope</span>
+                <span class="cmd-desc">Open performance diagnostic tool.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/lagg clear</span>
+                <span class="cmd-desc">Clear dropped ground items manually.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/chunky start</span>
+                <span class="cmd-desc">Pre-generate world chunks.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-card" data-category="tracking">
+        <div class="category-title">🔍 Anti-Xray & Player Tracking</div>
+        <div class="cmd-list">
+            <div class="cmd-item">
+                <span class="cmd-code">/minertrack check &lt;player&gt;</span>
+                <span class="cmd-desc">Check ore mining ratios for suspicious X-Ray behavior.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/minertrack alerts</span>
+                <span class="cmd-desc">Toggle live staff notifications for fast ore mining.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/tp &lt;player&gt;</span>
+                <span class="cmd-desc">Teleport directly to a player to observe them.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-card" data-category="world">
+        <div class="category-title">👾 NPCs & Holograms</div>
+        <div class="cmd-list">
+            <div class="cmd-item">
+                <span class="cmd-code">/fancynpcs create &lt;name&gt;</span>
+                <span class="cmd-desc">Spawn an interactive NPC at your location.</span>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-code">/hologram create &lt;name&gt; &lt;text&gt;</span>
+                <span class="cmd-desc">Create floating 3D text in the world.</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    CheeseWhiz SMP • Internal Staff Guide
+</footer>
+
+<script>
+// Filter commands by search input
+function filterCommands() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const items = document.querySelectorAll('.cmd-item');
+    const cards = document.querySelectorAll('.category-card');
+
+    items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(input)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    cards.forEach(card => {
+        const visibleItems = card.querySelectorAll('.cmd-item[style="display: block;"]');
+        if (visibleItems.length === 0 && input !== "") {
+            card.style.display = 'none';
+        } else {
+            card.style.display = 'block';
+        }
+    });
+}
+
+// Filter cards by category tag
+function filterTag(category, btn) {
+    document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.category-card');
+    cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Reset search input on filter change
+    document.getElementById('searchInput').value = "";
+    document.querySelectorAll('.cmd-item').forEach(i => i.style.display = 'block');
+}
+</script>
+
+</body>
+</html>
