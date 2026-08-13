@@ -3,29 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Info Diagnostic</title>
+    <title>Browser & Device Feature Diagnostic</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-        .info-card { background: #f4f4f9; padding: 15px; border-radius: 8px; max-width: 500px; }
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --border-color: #e9ecef;
+            --accent-color: #0d6efd;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: var(--accent-color);
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .value {
+            font-family: monospace;
+            word-break: break-all;
+            text-align: right;
+            max-width: 60%;
+        }
     </style>
 </head>
 <body>
 
-    <h2>Your System Diagnostics</h2>
-    <div class="info-card">
-        <p><strong>Browser Info:</strong> <span id="user-agent"></span></p>
-        <p><strong>Screen Resolution:</strong> <span id="screen-res"></span></p>
-        <p><strong>CPU Cores:</strong> <span id="cpu-cores"></span></p>
-        <p><strong>Language:</strong> <span id="language"></span></p>
-    </div>
+<div class="container">
+    <h1>System Diagnostic Information</h1>
+    <p class="subtitle">Client-side browser parameters accessible via standard web APIs.</p>
 
-    <script>
-        // Reads standard public browser properties
-        document.getElementById('user-agent').textContent = navigator.userAgent;
-        document.getElementById('screen-res').textContent = `${window.screen.width} x ${window.screen.height}`;
-        document.getElementById('cpu-cores').textContent = navigator.hardwareConcurrency || "Unavailable";
+    <div class="grid">
+        <!-- Display Capabilities -->
+        <div class="card">
+            <h2>Display & Viewport</h2>
+            <div class="data-row">
+                <span class="label">Screen Resolution</span>
+                <span class="value" id="screen-res">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Viewport Size</span>
+                <span class="value" id="viewport-size">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Device Pixel Ratio</span>
+                <span class="value" id="pixel-ratio">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Color Depth</span>
+                <span class="value" id="color-depth">-</span>
+            </div>
+        </div>
+
+        <!-- Hardware & Platform -->
+        <div class="card">
+            <h2>Hardware Capabilities</h2>
+            <div class="data-row">
+                <span class="label">CPU Logical Cores</span>
+                <span class="value" id="cpu-cores">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Approx. RAM</span>
+                <span class="value" id="device-memory">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Touch Points Supported</span>
+                <span class="value" id="touch-points">-</span>
+            </div>
+        </div>
+
+        <!-- Environment & Browser -->
+        <div class="card">
+            <h2>Environment & Locale</h2>
+            <div class="data-row">
+                <span class="label">Language</span>
+                <span class="value" id="language">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Timezone</span>
+                <span class="value" id="timezone">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Cookies Enabled</span>
+                <span class="value" id="cookies-enabled">-</span>
+            </div>
+            <div class="data-row">
+                <span class="label">User Agent</span>
+                <span class="value" id="user-agent">-</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Display metrics
+        document.getElementById('screen-res').textContent = `${window.screen.width} × ${window.screen.height}`;
+        document.getElementById('viewport-size').textContent = `${window.innerWidth} × ${window.innerHeight}`;
+        document.getElementById('pixel-ratio').textContent = `${window.devicePixelRatio}x`;
+        document.getElementById('color-depth').textContent = `${window.screen.colorDepth}-bit`;
+
+        // Hardware metrics (where API support exists)
+        document.getElementById('cpu-cores').textContent = navigator.hardwareConcurrency || 'Not reported';
+        document.getElementById('device-memory').textContent = navigator.deviceMemory 
+            ? `~${navigator.deviceMemory} GB` 
+            : 'Not reported';
+        document.getElementById('touch-points').textContent = navigator.maxTouchPoints || '0';
+
+        // Environment metrics
         document.getElementById('language').textContent = navigator.language;
-    </script>
+        document.getElementById('timezone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('cookies-enabled').textContent = navigator.cookieEnabled ? 'Yes' : 'No';
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+    });
+</script>
 
 </body>
 </html>
